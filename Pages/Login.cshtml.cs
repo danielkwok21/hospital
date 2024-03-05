@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace hospital.Pages;
 
-public class IndexPageModel : PageModel
+public class LoginPageModel : PageModel
 {
-    private readonly ILogger<IndexPageModel> _logger;
+    private readonly ILogger<LoginPageModel> _logger;
 
-    public IndexPageModel(ILogger<IndexPageModel> logger)
+    public LoginPageModel(ILogger<LoginPageModel> logger)
     {
         _logger = logger;
     }
