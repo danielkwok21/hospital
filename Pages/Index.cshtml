@@ -1,10 +1,391 @@
 ﻿@page
-@model IndexModel
+@model hospital.Pages.IndexPageModel
+
+
 @{
-    ViewData["Title"] = "Home page";
+  Layout = "~/Pages/Shared/_LoggedInLayout.cshtml";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="p-5">
+  <div class="d-flex row-gap-2 flex-column align-items-end">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal" style="width: 150px">Add
+      patient</button>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Date of Birth</th>
+          <th>Gender</th>
+          <th>Admission Date</th>
+          <th>Discharge Date</th>
+          <th>Bed Number</th>
+          <th>Ward</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody style="text-color:grey">
+        <tr data-toggle="modal" data-target="#detailModal">
+          <td>1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>
+            <button class="btn btn-primary btn-sm" data-toggle="modal" data-bs-toggle="modal"
+              data-bs-target="#viewModal">View</button>
+            <button class="btn btn-warning btn-sm" data-toggle="modal" data-bs-toggle="modal"
+              data-bs-target="#editModal">Edit</button>
+            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+          </td>
+        </tr>
+        <tr data-toggle="modal" data-target="#detailModal">
+          <td>1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+        </tr>
+        <tr data-toggle="modal" data-target="#detailModal">
+          <td>1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+          <td>Item 1</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Add new patient</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container mt-4">
+          <form id="addPatientForm">
+            <div class="card my-3">
+              <div class="card-header">
+                Personal
+              </div>
+              <div class="card-body">
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name" required>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="dateOfBirth">Date of Birth</label>
+                    <input type="date" class="form-control" id="dateOfBirth" required>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="gender">Gender</label>
+                    <select class="form-control" id="gender" required>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm">
+                    <label for="address">Address</label>
+                    <textarea type="text" class="form-control" id="address" placeholder="Enter address"
+                      required></textarea>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card my-3">
+              <div class="card-header">
+                Medical
+              </div>
+              <div class="card-body">
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="admissionDate">Admission Date</label>
+                    <input type="datetime-local" class="form-control" id="admissionDate" required>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="dischargeDate">Discharge Date</label>
+                    <input type="datetime-local" class="form-control" id="dischargeDate">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="bedNumber">Bed Number</label>
+                    <input type="text" class="form-control" id="bedNumber">
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="ward">Ward</label>
+                    <input type="text" class="form-control" id="ward">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm">
+                    <label for="diagnosis">Diagnosis</label>
+                    <textarea class="form-control" id="diagnosis" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="addPatientForm">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Edit patient</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container mt-4">
+          <form id="addPatientForm">
+            <div class="card my-3">
+              <div class="card-header">
+                Personal
+              </div>
+              <div class="card-body">
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="firstName">First Name</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name" required>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name" required>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="dateOfBirth">Date of Birth</label>
+                    <input type="date" class="form-control" id="dateOfBirth" required>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="gender">Gender</label>
+                    <select class="form-control" id="gender" required>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm">
+                    <label for="address">Address</label>
+                    <textarea type="text" class="form-control" id="address" placeholder="Enter address"
+                      required></textarea>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card my-3">
+              <div class="card-header">
+                Medical
+              </div>
+              <div class="card-body">
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="admissionDate">Admission Date</label>
+                    <input type="datetime-local" class="form-control" id="admissionDate" required>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="dischargeDate">Discharge Date</label>
+                    <input type="datetime-local" class="form-control" id="dischargeDate">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="bedNumber">Bed Number</label>
+                    <input type="text" class="form-control" id="bedNumber">
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label for="ward">Ward</label>
+                    <input type="text" class="form-control" id="ward">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm">
+                    <label for="diagnosis">Diagnosis</label>
+                    <textarea class="form-control" id="diagnosis" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="addPatientForm">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModal" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">#patientName</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container mt-4">
+          <form id="addPatientForm">
+            <div class="card my-3">
+              <div class="card-header">
+                Personal
+              </div>
+              <div class="card-body">
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label style="color:grey; font-size: 15px">First Name</label>
+                    <p>#InsertFirstNameHere</p>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label style="color:grey; font-size: 15px">Last Name</label>
+                    <p>#InsertLastNameHere</p>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label style="color:grey; font-size: 15px">Date of Birth</label>
+                    <p>#InsertDateOfBirth</p>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label style="color:grey; font-size: 15px">Gender</label>
+                    <p>#InsertGenderHere</p>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm">
+                    <label style="color:grey; font-size: 15px">Address</label>
+                    <p>#InsertAddressHere</p>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label style="color:grey; font-size: 15px">Phone Number</label>
+                    <p>#InsertPhoneNumberHere</p>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label style="color:grey; font-size: 15px">Email</label>
+                    <p>#InsertEmailHere</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card my-3">
+              <div class="card-header">
+                Medical
+              </div>
+              <div class="card-body">
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label style="color:grey; font-size: 15px">Admission Date</label>
+                    <p>#InsertAdmissinoDateHere</p>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label style="color:grey; font-size: 15px">Discharge Date</label>
+                    <p>#InsertDischargeDateHere</p>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm col-md-6">
+                    <label style="color:grey; font-size: 15px">bed Number</label>
+                    <p>#InsertBedNumberHere</p>
+                  </div>
+                  <div class="form-group input-group-sm col-md-6">
+                    <label style="color:grey; font-size: 15px">Ward</label>
+                    <p>#InsertWardHere</p>
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <div class="form-group input-group-sm">
+                    <label style="color:grey; font-size: 15px">Diagnosis</label>
+                    <p>#InsertDiagnosisHere</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" form="addPatientForm">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Delete patient</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container mt-4">
+          <p>Confirm delete #patientName?</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-danger" form="addPatientForm">Delete</button>
+      </div>
+    </div>
+  </div>
 </div>
