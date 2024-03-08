@@ -10,7 +10,7 @@
   <div class="d-flex row-gap-2 flex-column align-items-end">
     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal" style="width: 150px">Add
       patient</button>
-    <table class="table table-bordered">
+    <table class="table">
       <thead>
         <tr>
           <th>First Name</th>
@@ -25,150 +25,114 @@
         </tr>
       </thead>
       <tbody style="text-color:grey">
-        <tr data-toggle="modal" data-target="#detailModal">
-          <td>1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>
-            <button class="btn btn-primary btn-sm" data-toggle="modal" data-bs-toggle="modal"
-              data-bs-target="#viewModal">View</button>
-            <button class="btn btn-warning btn-sm" data-toggle="modal" data-bs-toggle="modal"
-              data-bs-target="#editModal">Edit</button>
-            <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
-          </td>
-        </tr>
-        <tr data-toggle="modal" data-target="#detailModal">
-          <td>1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-        </tr>
-        <tr data-toggle="modal" data-target="#detailModal">
-          <td>1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-          <td>Item 1</td>
-        </tr>
+        @foreach (var patient in Model.Patients)
+        {
+          <tr data-toggle="modal" data-target="#detailModal">
+            <td>@patient.FirstName</td>
+            <td>@patient.LastName</td>
+            <td>@patient.DateOfBirth</td>
+            <td>@patient.Gender</td>
+            <td>@patient.AdmissionDate</td>
+            <td>@patient.DischargeDate</td>
+            <td>@patient.BedNumber</td>
+            <td>@patient.Ward</td>
+            <td>
+              <button class="btn btn-primary btn-sm" data-toggle="modal" data-bs-toggle="modal"
+                data-bs-target="#viewModal">View</button>
+              <button class="btn btn-warning btn-sm" data-toggle="modal" data-bs-toggle="modal"
+                data-bs-target="#editModal">Edit</button>
+              <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">Delete</button>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Add new patient</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="container mt-4">
-          <form id="addPatientForm">
-            <div class="card my-3">
-              <div class="card-header">
-                Personal
-              </div>
-              <div class="card-body">
-                <div class="row mb-3">
-                  <div class="form-group input-group-sm col-md-6">
-                    <label for="firstName">First Name</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name" required>
-                  </div>
-                  <div class="form-group input-group-sm col-md-6">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name" required>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-group input-group-sm col-md-6">
-                    <label for="dateOfBirth">Date of Birth</label>
-                    <input type="date" class="form-control" id="dateOfBirth" required>
-                  </div>
-                  <div class="form-group input-group-sm col-md-6">
-                    <label for="gender">Gender</label>
-                    <select class="form-control" id="gender" required>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-group input-group-sm">
-                    <label for="address">Address</label>
-                    <textarea type="text" class="form-control" id="address" placeholder="Enter address"
-                      required></textarea>
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-group input-group-sm col-md-6">
-                    <label for="phoneNumber">Phone Number</label>
-                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
-                  </div>
-                  <div class="form-group input-group-sm col-md-6">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" required>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="card my-3">
-              <div class="card-header">
-                Medical
-              </div>
-              <div class="card-body">
-                <div class="row mb-3">
-                  <div class="form-group input-group-sm col-md-6">
-                    <label for="admissionDate">Admission Date</label>
-                    <input type="datetime-local" class="form-control" id="admissionDate" required>
-                  </div>
-                  <div class="form-group input-group-sm col-md-6">
-                    <label for="dischargeDate">Discharge Date</label>
-                    <input type="datetime-local" class="form-control" id="dischargeDate">
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-group input-group-sm col-md-6">
-                    <label for="bedNumber">Bed Number</label>
-                    <input type="text" class="form-control" id="bedNumber">
-                  </div>
-                  <div class="form-group input-group-sm col-md-6">
-                    <label for="ward">Ward</label>
-                    <input type="text" class="form-control" id="ward">
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <div class="form-group input-group-sm">
-                    <label for="diagnosis">Diagnosis</label>
-                    <textarea class="form-control" id="diagnosis" rows="3"></textarea>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </form>
+<form method="post">
+  <button type="submit" class="btn btn-primary">Submit</button>
+  <div class="card my-3">
+    <div class="card-header">
+      Personal
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="form-group input-group-sm col-md-6">
+          <label for="firstName">First Name</label>
+          <input type="text" value="john" class="form-control" name="CreatePatientRequest.FirstName" id="firstName" placeholder="Enter first name">
+        </div>
+        <div class="form-group input-group-sm col-md-6">
+          <label for="lastName">Last Name</label>
+          <input type="text" class="form-control" name="lastName" id="lastName" placeholder="Enter last name">
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-primary" form="addPatientForm">Submit</button>
+      <div class="row mb-3">
+        <div class="form-group input-group-sm col-md-6">
+          <label for="dateOfBirth">Date of Birth</label>
+          <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth">
+        </div>
+        <div class="form-group input-group-sm col-md-6">
+          <label for="gender">Gender</label>
+          <select class="form-control" name="gender" id="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="form-group input-group-sm">
+          <label for="address">Address</label>
+          <textarea type="text" class="form-control" name="address" id="address" placeholder="Enter address"></textarea>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="form-group input-group-sm col-md-6">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="tel" class="form-control" name="phoneNumber" id="phoneNumber" placeholder="Enter phone number">
+        </div>
+        <div class="form-group input-group-sm col-md-6">
+          <label for="email">Email</label>
+          <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
+        </div>
       </div>
     </div>
   </div>
-</div>
+
+  <div class="card my-3">
+    <div class="card-header">
+      Medical
+    </div>
+    <div class="card-body">
+      <div class="row mb-3">
+        <div class="form-group input-group-sm col-md-6">
+          <label for="admissionDate">Admission Date</label>
+          <input type="datetime-local" class="form-control" name="admissionDate" id="admissionDate">
+        </div>
+        <div class="form-group input-group-sm col-md-6">
+          <label for="dischargeDate">Discharge Date</label>
+          <input type="datetime-local" class="form-control" name="dischargeDate" id="dischargeDate">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="form-group input-group-sm col-md-6">
+          <label for="bedNumber">Bed Number</label>
+          <input type="text" class="form-control" name="bedNumber" id="bedNumber">
+        </div>
+        <div class="form-group input-group-sm col-md-6">
+          <label for="ward">Ward</label>
+          <input type="text" class="form-control" name="ward" id="ward">
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="form-group input-group-sm">
+          <label for="diagnosis">Diagnosis</label>
+          <textarea class="form-control" name="diagnosis" id="diagnosis" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
 
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModal" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -188,21 +152,21 @@
                 <div class="row mb-3">
                   <div class="form-group input-group-sm col-md-6">
                     <label for="firstName">First Name</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name" required>
+                    <input type="text" class="form-control" name="" id="firstName" placeholder="Enter first name">
                   </div>
                   <div class="form-group input-group-sm col-md-6">
                     <label for="lastName">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name" required>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group input-group-sm col-md-6">
                     <label for="dateOfBirth">Date of Birth</label>
-                    <input type="date" class="form-control" id="dateOfBirth" required>
+                    <input type="date" class="form-control" id="dateOfBirth">
                   </div>
                   <div class="form-group input-group-sm col-md-6">
                     <label for="gender">Gender</label>
-                    <select class="form-control" id="gender" required>
+                    <select class="form-control" id="gender">
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>
@@ -211,18 +175,17 @@
                 <div class="row mb-3">
                   <div class="form-group input-group-sm">
                     <label for="address">Address</label>
-                    <textarea type="text" class="form-control" id="address" placeholder="Enter address"
-                      required></textarea>
+                    <textarea type="text" class="form-control" id="address" placeholder="Enter address"></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group input-group-sm col-md-6">
                     <label for="phoneNumber">Phone Number</label>
-                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number">
                   </div>
                   <div class="form-group input-group-sm col-md-6">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email">
                   </div>
                 </div>
               </div>
@@ -236,7 +199,7 @@
                 <div class="row mb-3">
                   <div class="form-group input-group-sm col-md-6">
                     <label for="admissionDate">Admission Date</label>
-                    <input type="datetime-local" class="form-control" id="admissionDate" required>
+                    <input type="datetime-local" class="form-control" id="admissionDate">
                   </div>
                   <div class="form-group input-group-sm col-md-6">
                     <label for="dischargeDate">Discharge Date</label>
@@ -290,21 +253,21 @@
                 <div class="row mb-3">
                   <div class="form-group input-group-sm col-md-6">
                     <label for="firstName">First Name</label>
-                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name" required>
+                    <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
                   </div>
                   <div class="form-group input-group-sm col-md-6">
                     <label for="lastName">Last Name</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name" required>
+                    <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group input-group-sm col-md-6">
                     <label for="dateOfBirth">Date of Birth</label>
-                    <input type="date" class="form-control" id="dateOfBirth" required>
+                    <input type="date" class="form-control" id="dateOfBirth">
                   </div>
                   <div class="form-group input-group-sm col-md-6">
                     <label for="gender">Gender</label>
-                    <select class="form-control" id="gender" required>
+                    <select class="form-control" id="gender">
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>
@@ -313,18 +276,17 @@
                 <div class="row mb-3">
                   <div class="form-group input-group-sm">
                     <label for="address">Address</label>
-                    <textarea type="text" class="form-control" id="address" placeholder="Enter address"
-                      required></textarea>
+                    <textarea type="text" class="form-control" id="address" placeholder="Enter address"></textarea>
                   </div>
                 </div>
                 <div class="row mb-3">
                   <div class="form-group input-group-sm col-md-6">
                     <label for="phoneNumber">Phone Number</label>
-                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+                    <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number">
                   </div>
                   <div class="form-group input-group-sm col-md-6">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" required>
+                    <input type="email" class="form-control" id="email" placeholder="Enter email">
                   </div>
                 </div>
               </div>
@@ -338,7 +300,7 @@
                 <div class="row mb-3">
                   <div class="form-group input-group-sm col-md-6">
                     <label for="admissionDate">Admission Date</label>
-                    <input type="datetime-local" class="form-control" id="admissionDate" required>
+                    <input type="datetime-local" class="form-control" id="admissionDate">
                   </div>
                   <div class="form-group input-group-sm col-md-6">
                     <label for="dischargeDate">Discharge Date</label>
