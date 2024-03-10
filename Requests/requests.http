@@ -1,0 +1,16 @@
+POST http://localhost:5175/patient
+content-type: application/json
+
+{
+  "LastName": "Doe",
+  "DateOfBirth": "1990-01-01",
+  "Gender": "Male",
+  "Address": "123 Main St",
+  "PhoneNumber": "555-1234",
+  "Email": "john.doe@example.com",
+  "AdmissionDate": "2024-03-09T12:00:00",
+  "DischargeDate": "2024-03-16T12:00:00",
+  "BedNumber": 101,
+  "Ward": "Cardiology",
+  "Diagnosis": "Hypertension"
+}

@@ -1,9 +1,5 @@
-using System.ComponentModel.DataAnnotations;
 using hospital.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using MySqlX.XDevAPI.Common;
-using Newtonsoft.Json;
 
 namespace hospital.Pages;
 
@@ -24,23 +20,4 @@ public class IndexPageModel : PageModel
     {
         Patients = _context.Patients.ToList();
     }
-    [BindProperty]
-    public CreatePatientRequest CreatePatientRequest { get; set; }
-    public async Task<IActionResult> OnPost()
-    {
-
-        var form = Request.Form;
-
-        return RedirectToPage("Index");
-    }
-}
-
-public class CreatePatientRequest
-{
-
-    [Required(ErrorMessage = "Patient firstName is required")]
-    public required string FirstName;
-
-    [Required(ErrorMessage = "Patient awefwef is required")]
-    public required string Awefwef;
 }

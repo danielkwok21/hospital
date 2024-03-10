@@ -5,6 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddControllers();
+builder.Services.AddLogging();
 builder.Services.AddDbContext<DataContext>(options =>
     {
         options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -25,6 +27,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllers();
 
 app.MapRazorPages();
 

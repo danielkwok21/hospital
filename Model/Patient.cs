@@ -5,16 +5,48 @@ namespace hospital.Models;
 [Table("patient")]
 public class Patient
 {
+    public Patient(string? firstName, string? lastName, DateTime dateOfBirth, string? gender, string? address, string? phoneNumber, string? email, DateTime dischargeDate, int bedNumber, string? ward, string? diagnosis)
+    {
+        if (firstName == null)
+        {
+            throw new ArgumentNullException($"{nameof(firstName)} cannot be null");
+        }
+
+        if (lastName == null)
+        {
+            throw new ArgumentNullException($"{nameof(lastName)} cannot be null");
+        }
+
+        if (gender == null)
+        {
+            throw new ArgumentNullException($"{nameof(gender)} cannot be null");
+        }
+
+        FirstName = firstName;
+        LastName = lastName;
+        DateOfBirth = dateOfBirth;
+        Gender = gender;
+        Address = address;
+        PhoneNumber = phoneNumber;
+        Email = email;
+        DischargeDate = dischargeDate;
+        BedNumber = bedNumber;
+        Ward = ward;
+        Diagnosis = diagnosis;
+        CreatedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
     [Column("id")]
     public int Id { get; set; }
     [Column("first_name")]
-    public required string FirstName { get; set; }
+    public string FirstName { get; set; }
     [Column("last_name")]
-    public required string LastName { get; set; }
+    public string LastName { get; set; }
     [Column("date_of_birth")]
     public DateTime DateOfBirth { get; set; }
     [Column("gender")]
-    public required string Gender { get; set; }
+    public string Gender { get; set; }
     [Column("Address")]
     public string? Address { get; set; }
     [Column("phone_number")]
