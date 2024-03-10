@@ -8,19 +8,19 @@ using Microsoft.AspNetCore.Mvc;
 public class PatientController : ControllerBase
 {
     private readonly ILogger<PatientController> _logger;
+    private readonly Data.DataContext _db;
 
-    public PatientController(ILogger<PatientController> logger)
+    public PatientController(ILogger<PatientController> logger, Data.DataContext db)
     {
         _logger = logger;
+        _db = db;
     }
 
     [HttpPost("")]
     public IActionResult OnPost(CreatePatientRequest createPatientRequest)
     {
-
         try
         {
-
             var patient = new Patient(
                 createPatientRequest.FirstName,
                 createPatientRequest.LastName,
@@ -35,7 +35,10 @@ public class PatientController : ControllerBase
                 createPatientRequest.Diagnosis
             );
 
-            return Ok(patient);
+            _db.Patients.Add(patient);
+            _db.SaveChanges();
+
+            return CreatedAtAction(null, null);
         }
         catch (Exception ex)
         {
@@ -75,8 +78,4 @@ public class CreatePatientRequest
     public string? Ward { get; set; }
 
     public string? Diagnosis { get; set; }
-}
-public class CreatePatientResponseError
-{
-    public required IEnumerable<string> Errors { get; set; }
 }

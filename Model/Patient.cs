@@ -22,6 +22,7 @@ public class Patient
             throw new ArgumentNullException($"{nameof(gender)} cannot be null");
         }
 
+        PatientID = Guid.NewGuid();
         FirstName = firstName;
         LastName = lastName;
         DateOfBirth = dateOfBirth;
@@ -33,12 +34,10 @@ public class Patient
         BedNumber = bedNumber;
         Ward = ward;
         Diagnosis = diagnosis;
-        CreatedAt = DateTime.UtcNow;
-        UpdatedAt = DateTime.UtcNow;
     }
 
-    [Column("id")]
-    public int Id { get; set; }
+    [Column("patient_id")]
+    public Guid PatientID { get; set; }
     [Column("first_name")]
     public string FirstName { get; set; }
     [Column("last_name")]
